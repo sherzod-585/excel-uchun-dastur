@@ -27,9 +27,24 @@ UZB_CYRILLIC_MAP = {
     'ҳ': 'х', 'Ҳ': 'Х',
 }
 
-LATIN_MULTI = [
-    ("O'", 'У'), ("o'", 'у'), ("O`", 'У'), ("o`", 'у'),
-    ("G'", 'Г'), ("g'", 'г'), ("G`", 'Г'), ("g`", 'г'),
+APOSTROPHES = (
+    "'"       # U+0027 standart apostrof
+    "‘"  # U+2018 left single quotation '
+    "’"  # U+2019 right single quotation '
+    "ʼ"  # U+02BC modifier letter apostrophe ʼ
+    "ʻ"  # U+02BB modifier letter turned comma ʻ
+    "`"       # U+0060 grave accent
+    "´"  # U+00B4 acute accent ´
+    "ʹ"  # U+02B9 modifier letter prime ʹ
+)
+
+# o' va g' uchun barcha apostrof turlari
+_OG_VARIANTS = [(f"O{a}", 'У') for a in APOSTROPHES] + \
+               [(f"o{a}", 'у') for a in APOSTROPHES] + \
+               [(f"G{a}", 'Г') for a in APOSTROPHES] + \
+               [(f"g{a}", 'г') for a in APOSTROPHES]
+
+LATIN_MULTI = _OG_VARIANTS + [
     ('SH', 'Ш'), ('Sh', 'Ш'), ('sh', 'ш'),
     ('CH', 'Ч'), ('Ch', 'Ч'), ('ch', 'ч'),
     ('NG', 'НГ'), ('Ng', 'Нг'), ('ng', 'нг'),
@@ -52,7 +67,7 @@ LATIN_SINGLE = {
     'T': 'Т', 't': 'т', 'U': 'У', 'u': 'у',
     'V': 'В', 'v': 'в', 'X': 'Х', 'x': 'х',
     'Y': 'Й', 'y': 'й', 'Z': 'З', 'z': 'з',
-    "'": '', '`': '',
+    **{ch: 'ъ' for ch in APOSTROPHES},
 }
 
 
